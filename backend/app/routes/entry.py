@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, render_template
 # from app.app import db
-from models import db
-from models.entry import Entry
+from app.models import db
+from app.models.entry import Entry
 
 
 entry_bp = Blueprint('entry', __name__)
@@ -27,7 +27,8 @@ def add():
 @entry_bp.route('/')
 @entry_bp.route('/index')
 def index():
-    entries = Entry.query.all()
+    # entries = Entry.query.all()
+    entries = "I got all entries"
     return entries 
 
 # UPDATE ---------------------------------------

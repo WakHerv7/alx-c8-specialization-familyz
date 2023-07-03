@@ -16,26 +16,91 @@
       "application/json"
     ],
     "paths": {
-      "/entry": {
-        "get": {
-          "summary": "Returns all entries.",
-          "produces": [
+        "/test1": {
+            "get": {
+              "summary": "Make it Happen Forever and ever",
+              "responses": {
+                "200": {
+                  "description": "Successful operation",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        },
+        "/": {
+            "get": {
+              "summary": "Get a hello message",
+              "responses": {
+                "200": {
+                  "description": "Successful operation",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        },
+        "/entry": {
+            "get": {
+              "summary": "Returns all entries.",
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful response.",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+        },
+        "/entry/add": {
+        "post": {
+            "summary": "Add new entry",
+            "produces": [
             "application/json"
-          ],
-          "responses": {
+            ],
+            "responses": {
             "200": {
-              "description": "Successful response.",
-              "schema": {
+                "description": "Successful response.",
+                "schema": {
                 "type": "object",
                 "properties": {
-                  "message": {
+                    "message": {
                     "type": "string"
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
     }
   }

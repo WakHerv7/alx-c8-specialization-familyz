@@ -1,10 +1,10 @@
 from flask import Flask, jsonify
-from config import Config
+from app.config import Config
 # from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS, cross_origin
-from models import db
-from routes.entry import entry_bp
+from app.models import db
+from app.routes.entry import entry_bp
 from flask_restful import Resource, Api
 from flask_swagger_ui import get_swaggerui_blueprint
 import json
@@ -20,13 +20,17 @@ CORS(app)
 app.register_blueprint(entry_bp, url_prefix='/entry')
 
 app.config.from_object(Config)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.sqlite3')
 # db = SQLAlchemy()
 migrate = Migrate(app, db)
 
+
+# Add the resources to the API
+# api.add_resource(entry., '/')
+# api.add_resource(Users, '/users')
+
 # Configure Swagger UI
 SWAGGER_URL = '/swagger'
-API_URL = 'http://127.0.0.1:8100/swagger.json'
+API_URL = '/swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
@@ -36,6 +40,10 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 )
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
+@app.route('/test1')
+def test1():
+    return "Make it Happen Forever and ever"
+    
 @app.route('/swagger.json')
 def swagger():
     with open('swagger.json', 'r') as f:
@@ -47,14 +55,8 @@ def swagger():
 #     db.create_all()
 
 
-from routes import entry
+from app.routes import entry
 
 
-def init_db():
-    db.init_app(app)
-    db.app = app
 
-if __name__ ==  '__main__':
-    init_db()
-    app.run(debug=True, host='0.0.0.0', port=8100)
 
