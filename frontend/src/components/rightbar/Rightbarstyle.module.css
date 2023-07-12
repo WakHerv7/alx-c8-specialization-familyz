@@ -1,0 +1,98 @@
+
+.rightbar {
+    flex: 3;
+    height: calc(100vh - 4.5rem);
+        margin: 2rem;
+       
+}
+
+.rightbarlist {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+}
+
+.rightbarlistitems {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    cursor: pointer;
+}
+
+.rightbarbottomwrapper>h2, .rightbarwrapper>h2 {
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.spantext {
+    margin-left: 1rem;
+}
+
+.rightbarbottomwrapper>hr{
+    margin-bottom: 1rem;
+    border: 1.5px solid rgba(252, 252, 252, 0.4);
+}
+
+.rightbarbottomwrapper {
+    margin-top: 1.25rem;
+    background-color: #50a3a2;
+    border-radius: 0.5rem;
+    padding: 2rem;
+
+}
+
+.rightbarwrapper {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    background-color: #50a3a2;
+    padding: 2rem;
+
+}
+
+.categorieslist {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.postcategories {
+appearance: none;
+    outline: 0;
+    background-color: rgba(252, 252, 252, 0.289);
+    border: 0;
+    padding: 0.4rem 0.1rem 0.4rem 0.1rem;
+    color: #e0f8f7;
+    border-radius: 1.875rem;
+    font-size: 0.9rem;
+    width: 8rem;
+    margin-right: 0.3rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.postcategories:hover {
+    background-color: rgb(228, 220, 220);
+    color: #50a3a2;
+    border: 1px solid rgba(252, 252, 252, 0.2);
+    font-weight: bold;
+}
+
+.morebutton {
+    appearance: none;
+    outline: 0;
+    background-color: rgba(252, 252, 252, 0.289);
+    border: 0;
+    padding: 0.4rem 0.1rem 0.4rem 0.1rem;
+    color: #e0f8f7;
+    border-radius: 1.875rem;
+    width: 5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 0.3rem;
+    cursor: pointer;
+}

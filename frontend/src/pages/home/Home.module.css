@@ -1,0 +1,5 @@
+.maincontainer {
+    background-color: rgba(226, 233, 232, 0.329);
+    display: flex;
+    width: 100%;
+}
