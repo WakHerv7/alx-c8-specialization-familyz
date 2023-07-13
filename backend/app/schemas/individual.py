@@ -13,7 +13,7 @@ individual_schema.add_argument('myName', type=str, required=True, location='form
 individual_schema.add_argument('myGender', type=str, required=True, location='form', help='This is required')
 individual_schema.add_argument('myLifeStatus', type=str, required=False, location='form', help='')
 individual_schema.add_argument('isIncomingSpouse', type=str, required=True, default=False, location='form', help='This is required')
-individual_schema.add_argument('noPhotoCheck', type=str, required=False, default=False, location='form', help='')
+individual_schema.add_argument('noPhotoCheck', type=str, required=False, default=True, location='form', help='')
 individual_schema.add_argument('old_filename', type=str, required=False, location='form', help='')
 individual_schema.add_argument('uploadedPhotoName', type=str, required=False, location='form', help='')
 
@@ -31,6 +31,7 @@ individual_schema.add_argument('hasMotherCheck', type=str, required=False, defau
 individual_schema.add_argument('motherLifeStatusValue', type=str, required=False, location='form', help='')
 
 individual_schema.add_argument('spouseValues', type=str, required=False, location='form', help='')
+individual_schema.add_argument('families', type=str, required=False, location='form', help='')
 
 individual_schema.add_argument('birthdate', type=str, required=False, location='form', help='')
 individual_schema.add_argument('birthplace', type=str, required=False, location='form', help='')
@@ -69,6 +70,7 @@ individual_fields = ns.model('IndividualFields', {
     'hasMotherCheck': fields.String,
     'motherLifeStatusValue': fields.String,
     'spouseValues': fields.String,
+    'families': fields.String,
     'birthdate': fields.String,
     'birthplace': fields.String,
     'birthrank': fields.String,
@@ -132,6 +134,11 @@ spouse_fields = ns.model('Spouse', {
     'status': fields.String
 })
 
+family_model = api.model('FamilyModel', {
+    "id": fields.Integer,
+    "name": fields.String,
+})
+
 individual_response = ns.model('Individual', {
     'myPhoto': fields.String,
     "myPhotoName": fields.String,
@@ -143,6 +150,7 @@ individual_response = ns.model('Individual', {
     'father': fields.Nested(parent_fields),
     'mother': fields.Nested(parent_fields),
     'spouses': fields.List(fields.Nested(spouse_fields)),
+    'families': fields.List(fields.Nested(family_model)),
     'len_spouses': fields.Integer,
     'birthrank': fields.String,
     'birthdate': fields.String,
@@ -192,6 +200,7 @@ current_member_model = api.model('CurrentMemberModel', {
     "father": fields.Nested(parent_model),
     "mother": fields.Nested(parent_model),
     "spouses": fields.List(fields.Nested(spouse_model)),
+    'families': fields.List(fields.Nested(family_model)),
     "birthrank": fields.Integer,
     "birthdate": fields.String,
     "birthplace": fields.String,

@@ -21,6 +21,9 @@ def is_valid_date(date_string, date_format='Y-m-d'):
             return False
     return False
 
+def get_ids(obj_list):
+    return [obj['id'] for obj in obj_list]
+
 def lifeValue(data):
     deadValue = False
     youngdeadValue = False

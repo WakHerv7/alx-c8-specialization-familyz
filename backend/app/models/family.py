@@ -18,7 +18,7 @@ class Family(db.Model):
     picture_path = Column(String(255))
 
     members = relationship("Individual", secondary=individual_family_association,
-                              backref="families", lazy="dynamic")
+                              backref="family", lazy="dynamic")
     
 
     # @property

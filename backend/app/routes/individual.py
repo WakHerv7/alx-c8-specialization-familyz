@@ -7,7 +7,8 @@ from werkzeug.datastructures import FileStorage
 from app import api, app
 from app.models import db
 from app.helpers import is_iterable, is_valid_date, lifeValue, create_individual, process_parents, \
-    process_generations, getFirst2Initials, lifeStatusFrontend, genderFrontend, str_to_bool
+    process_generations, getFirst2Initials, lifeStatusFrontend, genderFrontend, str_to_bool, get_ids
+from app.models.family import Family
 from app.models.individual import Individual
 from app.schemas.individual import ns, individual_schema, individual_fields, \
       all_individuals_response, individual_response, individual_form_data_response
@@ -119,15 +120,27 @@ class IndividualFormData(Resource):
                 cmoMother = Individual.query.get(cmo.parent_female_id)
             # ############################
             cmoSpouses = []
-            for cmosp in cmo.spouses:
-                spouseObject = cmosp
-                spouse = {
-                    "id":spouseObject.id,
-                    "name": spouseObject.name,
-                    "gender": spouseObject.gender,
-                    "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead),
-                }
-                cmoSpouses.append(spouse)
+            if is_iterable(cmo.spouses):
+                for cmosp in cmo.spouses:
+                    spouseObject = cmosp
+                    spouse = {
+                        "id":spouseObject.id,
+                        "name": spouseObject.name,
+                        "gender": spouseObject.gender,
+                        "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead),
+                    }
+                    cmoSpouses.append(spouse)
+            
+            # ############################
+            cmoFamilies = []
+            if is_iterable(cmo.families):
+                for cmosp in cmo.families:
+                    familyObject = cmosp 
+                    family = {
+                        "id":familyObject.id,
+                        "name": familyObject.name,                        
+                    }
+                    cmoFamilies.append(family)
 
             cm = {
                 "myPhoto": cmo.photoPath,
@@ -149,6 +162,7 @@ class IndividualFormData(Resource):
                 },
                 
                 "spouses": cmoSpouses,
+                "families": cmoFamilies,
                 "birthrank": cmo.birth_rank,
                 "birthdate": cmo.birth_date,
                 "birthplace": cmo.birth_place,
@@ -275,6 +289,17 @@ class IndividualDetails(Resource):
                         "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead, spouseObject.gender),
                     }
                     cmoSpouses.append(spouse)
+            
+            # ############################
+            cmoFamilies = []
+            if is_iterable(cmo.families):
+                for cmosp in cmo.families:
+                    familyObject = cmosp 
+                    family = {
+                        "id":familyObject.id,
+                        "name": familyObject.name,
+                    }
+                    cmoFamilies.append(family)
 
             cm = {
                 "myPhoto": cmo.photoPath,
@@ -298,6 +323,7 @@ class IndividualDetails(Resource):
                 },
                 
                 "spouses": cmoSpouses,
+                "families": cmoFamilies,
                 "len_spouses": len(cmoSpouses),
                 "birthrank": '' if cmo.birth_rank == None else cmo.birth_rank,
                 "birthdate": '' if cmo.birth_date == None else cmo.birth_date,
@@ -405,7 +431,18 @@ class NewFamilyMember(Resource):
                     SVs.append(spouse)
                     # SVs.append(int(sve["conjointId"]))
 
-            cmo.set_spouses(SVs)             
+            cmo.set_spouses(SVs)
+
+        if get_arg('families'):
+            # individual_families_ids = get_ids(cmo.families)
+            # individual_families = cmo.families
+            individual_families = []
+            for fmlyID in json.loads(get_arg('families')):
+                fmly = Family.query.get(int(fmlyID))
+                individual_families.append(fmly)
+
+            cmo.set_families(individual_families)
+
         cmo.save()
 
         return cmo.to_dict()
@@ -491,7 +528,18 @@ class IndividualUpdate(Resource):
                         SVs.append(spouse)
                         # SVs.append(int(sve["conjointId"]))
                 
-                cmo.set_spouses(SVs)            
+                cmo.set_spouses(SVs)
+
+            if get_arg('families'):
+                # individual_families_ids = get_ids(cmo.families)
+                # individual_families = cmo.families
+                individual_families = []
+                for fmlyID in json.loads(get_arg('families')):
+                    fmly = Family.query.get(int(fmlyID))
+                    individual_families.append(fmly)
+
+                cmo.set_families(individual_families)
+                            
             cmo.save()
 
             return cmo.to_dict()

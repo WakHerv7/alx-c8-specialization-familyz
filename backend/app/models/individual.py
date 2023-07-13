@@ -47,11 +47,11 @@ class Individual(db.Model):
                            backref="related_spouses")
 
     families = relationship("Family", secondary=individual_family_association,
-                               backref="members", lazy="dynamic")
+                               backref="member", lazy="dynamic")
 
-    posts = relationship("Post", backref="author", lazy=True)
-    comments = relationship("Comment", backref="author", lazy=True)
-    likes = relationship('Like', backref='liked_by', lazy=True)
+    # posts = relationship("Post", backref="author", lazy=True)
+    # comments = relationship("Comment", backref="author", lazy=True)
+    # likes = relationship('Like', backref='liked_by', lazy=True)
 
 
 
@@ -66,6 +66,13 @@ class Individual(db.Model):
         for spouse in spouse_list:
             if self not in spouse.spouses:
                 spouse.spouses.append(self)
+        db.session.commit()
+    
+    def set_families(self, family_list):
+        self.families = family_list
+        # for fl in family_list:
+        #     if self not in fl.members:
+        #         fl.members.append(self)
         db.session.commit()
 
     # @classmethod
