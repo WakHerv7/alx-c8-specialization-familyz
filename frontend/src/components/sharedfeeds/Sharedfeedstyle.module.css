@@ -1,0 +1,196 @@
+.feeds {
+    flex: 6;
+    margin: 2rem 0.5rem;
+}
+
+.feedswrapper {
+    border-radius: 0.5rem;
+    background-color: #50a3a2;
+    padding: 2rem;
+    margin-top: 1.5rem;
+}
+
+.feedswrapper>input{
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: rgba(252, 252, 252, 0.2);
+    width: 100%;
+    border-radius: 3px;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+    height: 4rem;
+}
+
+.feedswrapper>input:focus {
+    outline: none;
+}
+
+.feedssharediv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.feedssharediv>input {
+border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: rgba(252, 252, 252, 0.2);
+    height: 2.5rem;
+    border-radius: 1.875rem;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+    flex: 11;
+}
+
+.feedssendicon {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sendicon {
+    font-size: 2.2rem !important;
+}
+
+.photoicon {
+    font-size: 2.5rem !important;
+}
+
+.feedssharebutton {
+    appearance: none;
+    outline: 0;
+    background-color: white;
+    border: 0;
+    padding: 0.4rem 0.38rem;
+    color: #50a3a2;
+    border-radius: 1.875rem;
+    width: 7rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 0.3rem;
+    cursor: pointer;
+}
+
+.feedssharebutton:hover {
+    background-color: rgba(252, 252, 252, 0.2);
+    color: white;
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    ;
+}
+
+.secondfeedsfirstdiv {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.leftbaravatar {
+    flex: 1;
+}
+
+.ptext {
+    padding-left: 0;
+    text-align: left;
+    margin-left: 0;
+}
+
+.timeptext {
+    padding-right: 0;
+    text-align: right;
+    margin-right: 0;
+}
+
+.commentstext {
+    padding-right: 0;
+    text-align: right;
+    margin-right: 0;
+}
+
+.leftbarnames {
+    flex: 7;
+    margin-left: 1.5rem;
+}
+
+.time{
+    flex: 4;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.secondfeedsseconddiv {
+    margin-bottom: 1rem;
+}
+
+.secondfeedsphotoicon {
+    width: 100%;
+    height: 31.25rem;
+    border-radius: 1rem;
+}
+
+.secondfeedsthirddiv{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.thumbout {
+    flex: 4;
+    display: flex;
+    align-items: center;
+}
+
+.likes {
+    margin-left: 1rem;
+    margin-bottom: 0.3rem;
+    padding-left: 0;
+    text-align: left;
+}
+
+.dot {
+    margin-right: 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 900;
+}
+
+.comments {
+    flex: 8;
+    margin-bottom: 0;
+}
+
+.commentstext {
+    padding-bottom: 0;
+}
+
+.secondfeedsfourthdiv {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.commentinput {
+    border: 1px solid rgba(252, 252, 252, 0.4);
+    background-color: rgba(252, 252, 252, 0.2);
+    width: 100%;
+    border-radius: 0.3rem;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    font-size: 18px;
+    color: white;
+    font-weight: 300;
+    margin-left: 1rem;
+}
+
+.commentinput>h3 {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}

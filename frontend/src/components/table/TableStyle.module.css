@@ -1,0 +1,61 @@
+.firstthead {
+    display: flex;
+}
+
+.spandiv {
+    margin-left: 1rem;
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+}
+
+.row1 {
+    background-color: #50a3a2;
+}
+
+.firsthead {
+    display: flex;
+}
+
+.checkbox {
+    margin-left: 0.5rem !important;
+}
+
+.checkboxdiv {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.thead {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.spandiv {
+    margin-left: 5rem;
+}
+
+
+
+.list {
+    list-style: none;
+}
+
+.avatardiv {
+    display: flex;
+    margin-left: 1rem;
+    align-items: center;
+}
+
+.dataname {
+    text-align: center;
+}
+
+.namediv {
+    margin-left: 0.9rem;
+}
