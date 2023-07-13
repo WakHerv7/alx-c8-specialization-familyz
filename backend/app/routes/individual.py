@@ -383,13 +383,13 @@ class NewFamilyMember(Resource):
                 # Save the new file
                 timestr = time.strftime("%Y%m%d-%H%M%S")
                 photoName = 'Photo-'+timestr+".jpg"                
-                pathToConvertedFiles = os.path.join(document_root, 'photos', photoName)
+                pathToConvertedFiles = os.path.join(photos_root, 'photos', photoName)
                 relativePathToConvertedFiles = os.path.join('photos', photoName)
                 img = Image.open(get_arg('uploadedPhoto'))
                 img = img.convert('RGB')
                 img.thumbnail((256, 256))
                 img.save(pathToConvertedFiles)                
-                cmo.photoName, cmo.photoPath = photoName, relativePathToConvertedFiles
+                cmo.photoName, cmo.photoPath = photoName, pathToConvertedFiles
 
         # cmo.save()
         if get_arg('spouseValues'):

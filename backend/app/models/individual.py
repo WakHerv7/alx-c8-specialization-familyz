@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Text, Integer, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.associationproxy import association_proxy
-
+from app.models.family import individual_family_association
 
 spouse_association = db.Table('spouse_association',
     Column('individual_id', Integer, ForeignKey('individual.id')),
@@ -45,6 +45,15 @@ class Individual(db.Model):
                            primaryjoin=id == spouse_association.c.individual_id,
                            secondaryjoin=id == spouse_association.c.spouse_id,
                            backref="related_spouses")
+
+    families = relationship("Family", secondary=individual_family_association,
+                               backref="members", lazy="dynamic")
+
+    posts = relationship("Post", backref="author", lazy=True)
+    comments = relationship("Comment", backref="author", lazy=True)
+    likes = relationship('Like', backref='liked_by', lazy=True)
+
+
 
     # @property
     def save(self):
