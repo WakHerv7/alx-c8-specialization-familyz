@@ -99,7 +99,7 @@ class FamilyDetails(Resource):
                     "sMotherStatus": lifeStatusFrontend(familymb.sMotherDead, False),                        
                 }
             
-            familyMembers.append(member)
+                familyMembers.append(member)
             # ############################
             family_to_dict = family.to_dict()
             family_to_dict['members'] = familyMembers
@@ -136,7 +136,14 @@ class FamilyCreate(Resource):
 
             family.picture_name = photoName 
             family.picture_path = pathToConvertedFiles
-            
+        
+        if args['members']:
+            family_members = []
+            for memberID in json.loads(args['members']):
+                member = Individual.query.get(int(memberID))
+                family_members.append(member)
+
+            family.set_members(family_members)
         
         family.save()
 
@@ -174,6 +181,14 @@ class FamilyUpdate(Resource):
 
                     family.picture_name = photoName 
                     family.picture_path = pathToConvertedFiles
+                
+                if args['members']:
+                    family_members = []
+                    for memberID in json.loads(args['members']):
+                        member = Individual.query.get(int(memberID))
+                        family_members.append(member)
+
+                    family.set_members(family_members)
                 
                 family.save()
                 return family.to_dict()

@@ -70,9 +70,6 @@ class Individual(db.Model):
     
     def set_families(self, family_list):
         self.families = family_list
-        # for fl in family_list:
-        #     if self not in fl.members:
-        #         fl.members.append(self)
         db.session.commit()
 
     # @classmethod
