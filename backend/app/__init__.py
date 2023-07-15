@@ -52,7 +52,7 @@ def swagger():
         return jsonify(json.load(f))
 
 
-from app.routes import entry, individual, family
+from app.routes import entry, individual, family, post, comment, like
 
 
 

@@ -26,7 +26,78 @@ class FamilyList(Resource):
     @ns.marshal_list_with(family_model)
     def get(self):
         families = Family.query.all()
-        return [family.to_dict() for family in families]
+        families_as_dict_list = []
+        for family in families:
+            familyMembers = []
+            for familymb in family.members:
+                #----------------------------------
+                familymbFather = None
+                familymbMother = None
+                if familymb.parent_male_id :
+                    familymbFather = Individual.query.get(familymb.parent_male_id)
+                if familymb.parent_female_id :
+                    familymbMother = Individual.query.get(familymb.parent_female_id)
+                
+                #----------------------------------
+                familymbSpouses = []
+                for membersp in familymb.spouses:
+                    spouseObject = membersp
+                    spouse = {
+                        "id":spouseObject.id,
+                        "name": spouseObject.name,
+                        "gender": spouseObject.gender,
+                        "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead),
+                    }
+                    familymbSpouses.append(spouse)
+
+                member = {
+                    "id":familymb.id,
+                    "myPhoto": familymb.photoPath,
+                    "myPhotoName": familymb.photoName,
+                    "myName": familymb.name,
+                    "myGender": familymb.gender,
+                    "myLifeStatus": lifeStatusFrontend(familymb.dead, familymb.youngdead),
+                    "father": {
+                        "id": None if familymbFather == None else familymbFather.id,
+                        "name": None if familymbFather == None else familymbFather.name,
+                        "gender": None if familymbFather == None else familymbFather.gender,
+                        "status": None if familymbFather == None else lifeStatusFrontend(familymbFather.dead, familymbFather.youngdead),
+                    },
+                    "mother": {
+                        "id": None if familymbMother == None else familymbMother.id,
+                        "name": None if familymbMother == None else familymbMother.name,
+                        "gender": None if familymbMother == None else familymbMother.gender,
+                        "status": None if familymbMother == None else lifeStatusFrontend(familymbMother.dead, familymbMother.youngdead),
+                    },
+                    
+                    "spouses": familymbSpouses,
+                    "birthrank": familymb.birth_rank,
+                    "birthdate": familymb.birth_date,
+                    "birthplace": familymb.birth_place,
+                    "email": familymb.email,
+                    "telephone": familymb.telephone,
+                    "profession": familymb.profession,
+                    "country": familymb.country,
+                    "city": familymb.city,
+                    "linkedin": familymb.linkedin,
+                    "twitter": familymb.twitter,
+                    "facebook": familymb.facebook,
+                    "instagram": familymb.instagram,
+                    "aboutme": familymb.aboutme,
+                    "isIncomingSpouse": familymb.isIncomingSpouse,
+                    "sFatherName": familymb.sFatherName,
+                    "sFatherStatus": lifeStatusFrontend(familymb.sFatherDead, False),
+                    "sMotherName": familymb.sMotherName,
+                    "sMotherStatus": lifeStatusFrontend(familymb.sMotherDead, False),                        
+                }
+            
+                familyMembers.append(member)
+            # ############################
+            family_to_dict = family.to_dict()
+            family_to_dict['members'] = familyMembers
+            families_as_dict_list.append(family_to_dict)
+        
+        return families_as_dict_list
 
 # GET ONE ---------------------------------------
 @ns.route('/<int:id>')
@@ -58,6 +129,7 @@ class FamilyDetails(Resource):
                         "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead),
                     }
                     familymbSpouses.append(spouse)
+
                 member = {
                     "id":familymb.id,
                     "myPhoto": familymb.photoPath,
@@ -120,7 +192,7 @@ class FamilyCreate(Resource):
         name = args['name']
         picture = args['picture']
 
-        family = Family(name=name,)
+        family = Family(name=name)
 
         if picture:
             # filename = secure_filename(picture.filename)

@@ -181,6 +181,7 @@ class IndividualFormData(Resource):
                 "sFatherStatus": lifeStatusFrontend(cmo.sFatherDead, False),
                 "sMotherName": cmo.sMotherName,
                 "sMotherStatus": lifeStatusFrontend(cmo.sMotherDead, False),
+                "is_ghost": cmo.is_ghost,
             }
 
             response = {
@@ -226,6 +227,7 @@ class IndividualList(Resource):
                 "dead": indiv.dead,
                 "photo": indiv.photoPath if indiv.photoName else None,
                 "isIncomingSpouse": indiv.isIncomingSpouse,
+                "is_ghost": indiv.is_ghost,
             }
             # If Indiv has no parent and his/her spouse has no parent too then he's Generation 0
             if not indiv.parent_male_id and not indiv.parent_female_id:
@@ -305,7 +307,7 @@ class IndividualDetails(Resource):
                 "myPhoto": cmo.photoPath,
                 "myPhotoName": cmo.photoName,
                 "myID": cmo.id,
-                "myName": cmo.name,
+                "myName": cmo.name,                
                 "myInitials": getFirst2Initials(cmo.name),
                 "myGender": genderFrontend(cmo.gender),
                 "myLifeStatus": lifeStatusFrontend(cmo.dead, cmo.youngdead, cmo.gender),
@@ -338,6 +340,7 @@ class IndividualDetails(Resource):
                 "facebook": '' if cmo.facebook == None else cmo.facebook,
                 "instagram": '' if cmo.instagram == None else cmo.instagram,
                 "aboutme": '' if cmo.aboutme == None else cmo.aboutme,
+                "is_ghost": cmo.is_ghost,
             }
 
             if cmo.isIncomingSpouse :
@@ -394,6 +397,7 @@ class NewFamilyMember(Resource):
             instagram = get_arg('instagram'),
             aboutme = get_arg('aboutme'),
             isIncomingSpouse = str_to_bool(get_arg('isIncomingSpouse')),
+            is_ghost = str_to_bool(get_arg('is_ghost')),
         )
         
         if get_arg('urlLastButOneItem') == 'new_spouse':
@@ -421,15 +425,16 @@ class NewFamilyMember(Resource):
         if get_arg('spouseValues'):
             SVs = []
             for sve in json.loads(get_arg('spouseValues')):
-                if str_to_bool(sve["newConjointCheck"]):
-                    lv = lifeValue(sve["status"])
-                    indiv = Individual(name=sve["newConjointName"], gender=sve["gender"], dead=lv["dv"], youngdead=lv["ydv"])
-                    indiv.save()
-                    SVs.append(indiv.id)
-                else:
-                    spouse = Individual.query.get(int(sve["conjointId"]))
-                    SVs.append(spouse)
-                    # SVs.append(int(sve["conjointId"]))
+                spouse = Individual.query.get(int(sve))
+                SVs.append(spouse)
+                # if str_to_bool(sve["newConjointCheck"]):
+                #     lv = lifeValue(sve["status"])
+                #     indiv = Individual(name=sve["newConjointName"], gender=sve["gender"], dead=lv["dv"], youngdead=lv["ydv"])
+                #     indiv.save()
+                #     SVs.append(indiv.id)
+                # else:
+                #     spouse = Individual.query.get(int(sve["conjointId"]))
+                #     SVs.append(spouse)
 
             cmo.set_spouses(SVs)
 
@@ -466,6 +471,7 @@ class IndividualUpdate(Resource):
             motherId = process_parents(str_to_bool(get_arg('hasMotherCheck')), str_to_bool(get_arg('newMotherCheck')), str_to_bool(get_arg('urlLastButOneItem')), get_arg('motherId'), get_arg('newMotherName'), get_arg('motherLifeStatusValue'), 'f')      
             
             cmo = Individual.query.get(id)
+            cmo.is_ghost = str_to_bool(get_arg('is_ghost'))
             cmo.name, cmo.gender, cmo.dead, cmo.youngdead = get_arg('myName'), get_arg('myGender'), my_lv["dv"], my_lv["ydv"]
             cmo.generation, cmo.parent_male_id, cmo.parent_female_id = None, fatherId, motherId
             
@@ -518,15 +524,16 @@ class IndividualUpdate(Resource):
             if get_arg('spouseValues'):
                 SVs = []
                 for sve in json.loads(get_arg('spouseValues')):
-                    if str_to_bool(sve["newConjointCheck"]):
-                        lv = lifeValue(sve["status"])
-                        indiv = Individual(name=sve["newConjointName"], gender=sve["gender"], dead=lv["dv"], youngdead=lv["ydv"])
-                        indiv.save()
-                        SVs.append(indiv.id)
-                    else:
-                        spouse = Individual.query.get(int(sve["conjointId"]))
-                        SVs.append(spouse)
-                        # SVs.append(int(sve["conjointId"]))
+                    spouse = Individual.query.get(int(sve))
+                    SVs.append(spouse)
+                    # if str_to_bool(sve["newConjointCheck"]):
+                    #     lv = lifeValue(sve["status"])
+                    #     indiv = Individual(name=sve["newConjointName"], gender=sve["gender"], dead=lv["dv"], youngdead=lv["ydv"])
+                    #     indiv.save()
+                    #     SVs.append(indiv.id)
+                    # else:
+                    #     spouse = Individual.query.get(int(sve["conjointId"]))
+                    #     SVs.append(spouse)
                 
                 cmo.set_spouses(SVs)
 

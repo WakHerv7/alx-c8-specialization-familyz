@@ -1,7 +1,8 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Text, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Text, DateTime, Integer, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from sqlalchemy.ext.associationproxy import association_proxy
 from app.models.family import individual_family_association
 
@@ -12,6 +13,8 @@ spouse_association = db.Table('spouse_association',
 
 class Individual(db.Model):
     id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), nullable=False, default=None, onupdate=func.now(), server_default=func.now())
     name = Column(String(255))
     gender = Column(String(5))
     generation = Column(Integer, nullable=True)
@@ -40,6 +43,8 @@ class Individual(db.Model):
     photoName = Column(String(255), nullable=True)
     # You'll need Flask-Uploads or similar package to handle file uploads
     photoPath = Column(String(255), nullable=True)
+    photoPath = Column(Boolean, nullable=True)
+    is_ghost = Column(Boolean, default=False)
 
     spouses = relationship("Individual", secondary=spouse_association,
                            primaryjoin=id == spouse_association.c.individual_id,
@@ -47,7 +52,7 @@ class Individual(db.Model):
                            backref="related_spouses")
 
     families = relationship("Family", secondary=individual_family_association,
-                               backref="member", lazy="dynamic")
+                               lazy="dynamic", back_populates="members", overlaps="family,members")
 
     # posts = relationship("Post", backref="author", lazy=True)
     # comments = relationship("Comment", backref="author", lazy=True)

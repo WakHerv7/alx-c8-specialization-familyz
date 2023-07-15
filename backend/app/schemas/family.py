@@ -10,7 +10,7 @@ family_schema = reqparse.RequestParser()
 family_schema.add_argument('name', type=str, required=True, location='form', help='')
 family_schema.add_argument('picture', type=FileStorage, required=False, location='files', help='')
 family_schema.add_argument('picture_name', type=str, required=False, location='form', help='')
-family_schema.add_argument('members', type=str, required=True, location='form', help='')
+family_schema.add_argument('members', type=str, required=False, location='form', help='')
 
 
 

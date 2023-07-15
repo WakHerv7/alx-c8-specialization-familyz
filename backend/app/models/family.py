@@ -1,7 +1,8 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Text, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Text, DateTime, Integer, DateTime, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from sqlalchemy.ext.associationproxy import association_proxy
 
 
@@ -13,9 +14,11 @@ individual_family_association = db.Table(
 
 class Family(db.Model):
     id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), nullable=False, default=None, onupdate=func.now(), server_default=func.now())
     name = Column(String(255))
-    picture_name = Column(String(255))
-    picture_path = Column(String(255))
+    picture_name = Column(String(255), nullable=True)
+    picture_path = Column(String(255), nullable=True)
 
     members = relationship("Individual", secondary=individual_family_association,
                               backref="family", lazy="dynamic")

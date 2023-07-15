@@ -46,7 +46,7 @@ individual_schema.add_argument('twitter', type=str, required=False, location='fo
 individual_schema.add_argument('facebook', type=str, required=False, location='form', help='')
 individual_schema.add_argument('instagram', type=str, required=False, location='form', help='')
 individual_schema.add_argument('aboutme', type=str, required=False, location='form', help='')
-
+individual_schema.add_argument('is_ghost', type=str, required=True, default=False, location='form', help='This is required')
 
 
 individual_fields = ns.model('IndividualFields', {
@@ -84,6 +84,7 @@ individual_fields = ns.model('IndividualFields', {
     'facebook': fields.String,
     'instagram': fields.String,
     'aboutme': fields.String,
+    "is_ghost": fields.Boolean,
 })
 
 
@@ -105,6 +106,7 @@ individual_model = ns.model('IndividualModel', {
     "dead": fields.Boolean,
     "photo": fields.String,
     "isIncomingSpouse": fields.Boolean,
+    "is_ghost": fields.Boolean,
 })
 largest_gen_model = ns.model('IndividualModel', {
     "rank": fields.Integer,
@@ -164,7 +166,8 @@ individual_response = ns.model('Individual', {
     'twitter': fields.String,
     'facebook': fields.String,
     'instagram': fields.String,
-    'aboutme': fields.String
+    'aboutme': fields.String,
+    "is_ghost": fields.Boolean,
 })
 
 # =======================================================================================
@@ -219,6 +222,7 @@ current_member_model = api.model('CurrentMemberModel', {
     "sFatherStatus": fields.String,
     "sMotherName": fields.String,
     "sMotherStatus": fields.String,
+    "is_ghost": fields.Boolean,
 })
 individual_form_data_response = api.model('ResponseModel', {
     "allMembers": fields.Nested(individu_status_model),
@@ -247,6 +251,7 @@ individual_form_data_response = api.model('ResponseModel', {
 #     "newConjointCheck":false,
 #     "newConjointName": null
 # }
+# [{"newConjointCheck":false, "conjointId":1}]
 
 
 # individual_schema = api.model('Individual', {
