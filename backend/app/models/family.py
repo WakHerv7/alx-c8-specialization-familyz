@@ -1,24 +1,37 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Text, DateTime, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Text, DateTime, Integer, DateTime, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.ext.associationproxy import association_proxy
 
 
-class Comment(db.Model):
+individual_family_association = db.Table(
+    "individual_family",
+    Column("individual_id", Integer, ForeignKey("individual.id"), primary_key=True),
+    Column("family_id", Integer, ForeignKey("family.id"), primary_key=True),
+)
+
+class Family(db.Model):
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=False, default=None, onupdate=func.now(), server_default=func.now())
-    content = Column(Text)
+    name = Column(String(255))
+    picture_name = Column(String(255), nullable=True)
+    picture_path = Column(String(255), nullable=True)
 
-    author_id = Column(Integer, ForeignKey("individual.id"))
-    post_id = Column(Integer, ForeignKey("post.id"))
+    members = relationship("Individual", secondary=individual_family_association,
+                              backref="family", lazy="dynamic")
     
 
     # @property
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    # @classmethod
+    def set_members(self, member_list):
+        self.members = member_list
         db.session.commit()
 
     # @classmethod
@@ -32,10 +45,6 @@ class Comment(db.Model):
         result.pop('_sa_instance_state', None)
         return result
     
-    @classmethod
-    def find_by_post_id(cls, id):
-        response = db.session.query(cls).filter(cls.post_id == id).all()
-        # return [] if response == None else response
-        return response
+
 
 

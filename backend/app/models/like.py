@@ -6,14 +6,13 @@ from sqlalchemy.sql import func
 from sqlalchemy.ext.associationproxy import association_proxy
 
 
-class Comment(db.Model):
+class Like(db.Model):
     id = Column(Integer, primary_key=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(DateTime(timezone=True), nullable=False, default=None, onupdate=func.now(), server_default=func.now())
-    content = Column(Text)
 
-    author_id = Column(Integer, ForeignKey("individual.id"))
-    post_id = Column(Integer, ForeignKey("post.id"))
+    post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
+    liked_by_id = Column(Integer, ForeignKey('individual.id'), nullable=False)
     
 
     # @property
@@ -37,5 +36,7 @@ class Comment(db.Model):
         response = db.session.query(cls).filter(cls.post_id == id).all()
         # return [] if response == None else response
         return response
+        
+
 
 
