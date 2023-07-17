@@ -10,6 +10,7 @@ individual_schema = reqparse.RequestParser()
 individual_schema.add_argument('currentMemberId', type=int, required=False, location='form', help='')
 individual_schema.add_argument('urlLastButOneItem', type=str, required=False, location='form', help='')
 individual_schema.add_argument('myName', type=str, required=True, location='form', help='This is required')
+individual_schema.add_argument('myUsername', type=str, required=True, location='form', help='This is required')
 individual_schema.add_argument('myGender', type=str, required=True, location='form', help='This is required')
 individual_schema.add_argument('myLifeStatus', type=str, required=False, location='form', help='')
 individual_schema.add_argument('isIncomingSpouse', type=str, required=True, default=False, location='form', help='This is required')
@@ -47,12 +48,14 @@ individual_schema.add_argument('facebook', type=str, required=False, location='f
 individual_schema.add_argument('instagram', type=str, required=False, location='form', help='')
 individual_schema.add_argument('aboutme', type=str, required=False, location='form', help='')
 individual_schema.add_argument('is_ghost', type=str, required=True, default=False, location='form', help='This is required')
+individual_schema.add_argument('is_deleted', type=str, required=False, default=False, location='form')
 
 
 individual_fields = ns.model('IndividualFields', {
     'currentMemberId': fields.Integer,
     'urlLastButOneItem': fields.String,
     'myName': fields.String,
+    'myUsername': fields.String,
     'myGender': fields.String,
     'myLifeStatus': fields.String,
     'isIncomingSpouse': fields.String,
@@ -91,37 +94,6 @@ individual_fields = ns.model('IndividualFields', {
 
 
 
-
-
-
-individual_model = ns.model('IndividualModel', {
-    "id": fields.Integer,
-    "name": fields.String,
-    "gender": fields.String,
-    "alive": fields.Boolean,
-    "father": fields.Integer,
-    "mother": fields.Integer,
-    "spouses": fields.List(fields.Integer),
-    "generation": fields.Integer,
-    "dead": fields.Boolean,
-    "photo": fields.String,
-    "isIncomingSpouse": fields.Boolean,
-    "is_ghost": fields.Boolean,
-})
-largest_gen_model = ns.model('IndividualModel', {
-    "rank": fields.Integer,
-    "size": fields.Integer,
-})
-all_individuals_response = ns.model('ResponseModel', {
-    'family': fields.List(fields.Nested(individual_model)),
-    'familyGenerations': fields.List(fields.List(fields.Integer)),
-    'largest_gen': fields.Nested(largest_gen_model),
-    'nb_gen': fields.Integer,
-    'len_family': fields.Integer
-})
-
-
-
 parent_fields = ns.model('Parent', {
     'id': fields.Integer,
     'name': fields.String,
@@ -141,17 +113,81 @@ family_model = api.model('FamilyModel', {
     "name": fields.String,
 })
 
-individual_response = ns.model('Individual', {
+
+individual_model = ns.model('IndividualModel', {
+    "id": fields.Integer,
+    "generation": fields.Integer,
     'myPhoto': fields.String,
     "myPhotoName": fields.String,
     'myID': fields.Integer,
     'myName': fields.String,
+    'myUsername': fields.String,
     'myInitials': fields.String,
     'myGender': fields.String,
     'myLifeStatus': fields.String,
     'father': fields.Nested(parent_fields),
     'mother': fields.Nested(parent_fields),
     'spouses': fields.List(fields.Nested(spouse_fields)),
+    'children': fields.List(fields.Nested(spouse_fields)),
+    'families': fields.List(fields.Nested(family_model)),
+    'len_spouses': fields.Integer,
+    'birthrank': fields.String,
+    'birthdate': fields.String,
+    'birthplace': fields.String,
+    'email': fields.String,
+    'telephone': fields.String,
+    'profession': fields.String,
+    'country': fields.String,
+    'city': fields.String,
+    'linkedin': fields.String,
+    'twitter': fields.String,
+    'facebook': fields.String,
+    'instagram': fields.String,
+    'aboutme': fields.String,
+    "is_ghost": fields.Boolean,
+    
+    # "id": fields.Integer,
+    # "name": fields.String,
+    # "gender": fields.String,
+    # "alive": fields.Boolean,
+    # "father": fields.Integer,
+    # "mother": fields.Integer,
+    # "spouses": fields.List(fields.Integer),
+    # "generation": fields.Integer,
+    # "dead": fields.Boolean,
+    # "photo": fields.String,
+    # "isIncomingSpouse": fields.Boolean,
+    # "is_ghost": fields.Boolean,
+})
+largest_gen_model = ns.model('IndividualModel', {
+    "rank": fields.Integer,
+    "size": fields.Integer,
+})
+all_individuals_response = ns.model('ResponseModel', {
+    'family': fields.List(fields.Nested(individual_model)),
+    'familyGenerations': fields.List(fields.List(fields.Integer)),
+    'largest_gen': fields.Nested(largest_gen_model),
+    'nb_gen': fields.Integer,
+    'len_family': fields.Integer
+})
+
+
+
+
+
+individual_response = ns.model('Individual', {
+    'myPhoto': fields.String,
+    "myPhotoName": fields.String,
+    'myID': fields.Integer,
+    'myName': fields.String,
+    'myUsername': fields.String,
+    'myInitials': fields.String,
+    'myGender': fields.String,
+    'myLifeStatus': fields.String,
+    'father': fields.Nested(parent_fields),
+    'mother': fields.Nested(parent_fields),
+    'spouses': fields.List(fields.Nested(spouse_fields)),
+    'children': fields.List(fields.Nested(spouse_fields)),
     'families': fields.List(fields.Nested(family_model)),
     'len_spouses': fields.Integer,
     'birthrank': fields.String,
@@ -198,11 +234,13 @@ current_member_model = api.model('CurrentMemberModel', {
     "myPhoto": fields.String,
     "myPhotoName": fields.String,
     "myName": fields.String,
+    'myUsername': fields.String,
     "myGender": fields.String,
     "myLifeStatus": fields.String,
     "father": fields.Nested(parent_model),
     "mother": fields.Nested(parent_model),
     "spouses": fields.List(fields.Nested(spouse_model)),
+    'children': fields.List(fields.Nested(spouse_fields)),
     'families': fields.List(fields.Nested(family_model)),
     "birthrank": fields.Integer,
     "birthdate": fields.String,

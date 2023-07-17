@@ -1,6 +1,25 @@
 from app.models.individual import Individual
 from datetime import datetime
+from app import login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
 
+date_format = "%Y-%m-%d"
+
+
+@login_manager.user_loader
+def load_user(individual_id):
+    return Individual.query.get(int(individual_id))
+
+def hash_password(password):
+    # For Werkzeug
+    return generate_password_hash(password)
+
+def check_password(hashed_password, password):
+    # For Werkzeug
+    return check_password_hash(hashed_password, password)
+
+
+# ================================================================
 
 def str_to_bool(bool_str):
     return bool_str.lower() == 'true' if bool_str else False
@@ -24,7 +43,7 @@ def is_valid_date(date_string, date_format='Y-m-d'):
 def get_ids(obj_list):
     return [obj['id'] for obj in obj_list]
 
-def lifeValue(data):
+def lifeValueFr(data):
     deadValue = False
     youngdeadValue = False
     
@@ -33,6 +52,20 @@ def lifeValue(data):
     elif data == 'mort':
         deadValue = True
     elif data == 'mba':
+        deadValue = True
+        youngdeadValue = True
+
+    return {"dv": deadValue, "ydv":youngdeadValue}
+
+def lifeValue(data):
+    deadValue = False
+    youngdeadValue = False
+    
+    if data == 'alive':
+        deadValue = False
+    elif data == 'dead':
+        deadValue = True
+    elif data == 'daya':
         deadValue = True
         youngdeadValue = True
 
@@ -50,6 +83,32 @@ def getFirst2Initials(name) :
 
 
 def lifeStatusFrontend(dv, ydv, gend=None):
+    if gend == None : 
+        if dv == False:
+            return 'alive'
+        elif dv == True:
+            if ydv == False:
+                return 'dead'
+            else:
+                return 'daya'
+    elif gend == 'm':
+        if dv == False:
+            return 'Alive'
+        elif dv == True:
+            if ydv == False:
+                return 'Deceased'
+            else:
+                return 'Deceased at young age'
+    elif gend == 'f':
+        if dv == False:
+            return 'Alive'
+        elif dv == True:
+            if ydv == False:
+                return 'Deceased'
+            else:
+                return 'Deceased at young age'
+
+def lifeStatusFrontendFr(dv, ydv, gend=None):
     if gend == None : 
         if dv == False:
             return 'vie'
@@ -74,9 +133,14 @@ def lifeStatusFrontend(dv, ydv, gend=None):
                 return 'Morte'
             else:
                 return 'Morte à bas âge'
-
-
+            
 def genderFrontend(gend):
+    if gend == 'm':
+       return 'Male' 
+    elif gend == 'f':
+        return 'Female'
+    
+def genderFrontendFr(gend):
     if gend == 'm':
        return 'Masculin' 
     elif gend == 'f':
@@ -114,13 +178,13 @@ def process_generations(family, family_generations):
                 current_indiv = next(
                     (item for item in family if item["id"] == ig0), None
                 )
-                if indfam["father"] == ig0 or indfam["mother"] == ig0:
+                if indfam["father"]["id"] == ig0 or indfam["mother"]["id"] == ig0:
                     indfam["generation"] = current_indiv["generation"] + 1
                     new_gen.append(indfam["id"])
                     if indfam["spouses"]:
                         for isp in indfam["spouses"]:
                             spouse_item = next(
-                                (item for item in family if item["id"] == isp), None
+                                (item for item in family if item["id"] == isp["id"]), None
                             )
                             spouse_item["generation"] = current_indiv["generation"] + 1
                             new_gen.append(spouse_item["id"])

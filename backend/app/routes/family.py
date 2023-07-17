@@ -39,6 +39,20 @@ class FamilyList(Resource):
                     familymbMother = Individual.query.get(familymb.parent_female_id)
                 
                 #----------------------------------
+                indivChildren = []
+                myChildren1 = Individual.query.filter_by(parent_male_id=familymb.id).all()
+                myChildren2 = Individual.query.filter_by(parent_female_id=familymb.id).all()
+                unique_children = list(set(myChildren1) | set(myChildren2))
+                for indivChild in unique_children:
+                    childObject = indivChild 
+                    child = {
+                        "id": int(childObject.id),
+                        "name": childObject.name,
+                        "gender": genderFrontend(childObject.gender),
+                        "status": lifeStatusFrontend(childObject.dead, childObject.youngdead, childObject.gender),
+                    }
+                    indivChildren.append(child)
+                #----------------------------------
                 familymbSpouses = []
                 for membersp in familymb.spouses:
                     spouseObject = membersp
@@ -71,6 +85,7 @@ class FamilyList(Resource):
                     },
                     
                     "spouses": familymbSpouses,
+                    "children": indivChildren,
                     "birthrank": familymb.birth_rank,
                     "birthdate": familymb.birth_date,
                     "birthplace": familymb.birth_place,
@@ -119,6 +134,20 @@ class FamilyDetails(Resource):
                     familymbMother = Individual.query.get(familymb.parent_female_id)
                 
                 #----------------------------------
+                indivChildren = []
+                myChildren1 = Individual.query.filter_by(parent_male_id=familymb.id).all()
+                myChildren2 = Individual.query.filter_by(parent_female_id=familymb.id).all()
+                unique_children = list(set(myChildren1) | set(myChildren2))
+                for indivChild in unique_children:
+                    childObject = indivChild 
+                    child = {
+                        "id": int(childObject.id),
+                        "name": childObject.name,
+                        "gender": genderFrontend(childObject.gender),
+                        "status": lifeStatusFrontend(childObject.dead, childObject.youngdead, childObject.gender),
+                    }
+                    indivChildren.append(child)
+                #----------------------------------
                 familymbSpouses = []
                 for membersp in familymb.spouses:
                     spouseObject = membersp
@@ -151,6 +180,7 @@ class FamilyDetails(Resource):
                     },
                     
                     "spouses": familymbSpouses,
+                    "children":indivChildren,
                     "birthrank": familymb.birth_rank,
                     "birthdate": familymb.birth_date,
                     "birthplace": familymb.birth_place,

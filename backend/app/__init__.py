@@ -10,18 +10,23 @@ from flask_swagger_ui import get_swaggerui_blueprint
 # from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 from flask_marshmallow import Marshmallow
-
-
 import json
 import os
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+
+login_manager = LoginManager()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 marshmallow = Marshmallow()
 
 app = Flask(__name__)
+# db.init_app(app)
+login_manager.init_app(app)
 
 api = Api(app)
 CORS(app)
+
+
 
 app.config.from_object(Config)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -52,7 +57,9 @@ def swagger():
         return jsonify(json.load(f))
 
 
-from app.routes import entry, individual, family, post, comment, like
+from app.routes.initialization import main
+from app.routes import auth, individual, family, post, comment, like
+
 
 
 
