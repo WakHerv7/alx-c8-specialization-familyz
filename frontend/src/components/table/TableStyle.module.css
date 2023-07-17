@@ -28,6 +28,7 @@
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    padding: 10px;
 }
 
 .thead {
@@ -54,6 +55,8 @@
 
 .dataname {
     text-align: center;
+    padding: 10px;
+    max-width: 200px !important;
 }
 
 .namediv {

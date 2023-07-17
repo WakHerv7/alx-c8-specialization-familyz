@@ -9,95 +9,63 @@ body {
     font-family: "Source Sans Pro", sans-serif;
     color: white;
     font-weight: 300;
-    background: #f3fafa;
+    background: #7cc9c8;
     width: 100%;
     height: 100%;
 }
 
-.containerdiv {
+.profilecontainer {
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 1.5rem;
+    background-color: rgba(143, 207, 201, 0.329);
     display: flex;
-    background: #f3fafa;
-}
-
-.leftdiv {
-    flex: 4;
-}
-
-.rightdiv {
-    flex: 8;
-    display: flex;
-    background: #f3fafa;
     flex-direction: column;
 }
 
-.headertext {
-    background-color: #50a3a2;
+.renderedcontainer {
+    background-color: rgba(64, 165, 164, 0.329);
+    display: flex;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.renderedtop {
+    flex: 3;
+}
+
+.renderedbottom {
+    flex: 9;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+.addbutton {
+    margin-top: 1rem;
+    
+}
+
+.buttonicon {
+background-color: rgba(63, 164, 154, 0.582);
+border: none;
+border-radius: 50%;
+padding: 0.3rem;
+cursor: pointer;
+}
+
+.buttonicon:hover {
+    background-color: rgba(30, 68, 64, 0.582);
+}
+
+.addicon {
+    color: white !important;
+}
+
+.familymembers, .content {
+    margin-bottom: 1.5rem;
     margin-top: 2rem;
-    padding: 2rem;
-    border-radius: 0.3rem;
-}
-
-.headertext>h1 {
     font-weight: bold;
-    text-align: center;
-    font-size: 2.5rem;
-}
-
-.rightbottomdiv {
-    display: flex;
     background-color: #50a3a2;
-    margin-top: 2rem;
-    padding: 2rem;
-    border-radius: 0.3rem;
+    padding: 1.1rem;
+    border-radius: 0.5rem;
 }
-
-.bottomleftdiv {
-    flex: 4;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.bottomcenterdiv {
-    flex: 4;
-    display: flex;
-        flex-direction: column;
-        text-align: center;
-}
-
-.bottomrightdiv {
-    flex: 4;
-    text-align: center;
-}
-
-.photoicon {
-    font-size: 10rem !important;
-    margin-left: 4rem;
-    margin-top: 0;
-}
-
-.innerdiv {
-    margin-right: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.rightinnerdiv {
-    margin-top: 1.1rem;
-}
-
-.centerh1 {
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-}
-.personalh1 {
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-    padding-top: 0.7rem;
-}
-
-
-
-
-
-
-
