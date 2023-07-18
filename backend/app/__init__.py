@@ -20,23 +20,27 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 marshmallow = Marshmallow()
 
 app = Flask(__name__)
-# db.init_app(app)
-login_manager.init_app(app)
 
-api = Api(app)
 CORS(app)
-
-
+api = Api(app)
 
 app.config.from_object(Config)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
+db.init_app(app)
+migrate = Migrate(app, db)
+
+login_manager.init_app(app)
+marshmallow.init_app(app)
+
+
+
 # app.config['UPLOADED_PHOTOS_DEST'] = 'static/photos'
 # photos = UploadSet('photos', IMAGES)
 
 # configure_uploads(app, photos)
 
-marshmallow.init_app(app)
-migrate = Migrate(app, db)
+
 
 
 # Configure Swagger UI
