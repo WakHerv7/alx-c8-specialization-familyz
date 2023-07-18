@@ -32,18 +32,31 @@ class PostList(Resource):
         for post in posts:
             individual = Individual.query.get(post.author_id)
             post_to_dict = post.to_dict()
+            post_to_dict['created_at'] = post_to_dict['created_at'].isoformat()
             post_to_dict['author'] = {
                 "id":individual.id,
                 "myPhoto": individual.photoPath,
                 "myPhotoName": individual.photoName,
                 "myName": individual.name,
+                "myUsername": individual.email.split('@')[0],
                 "myGender": individual.gender,
                 "myLifeStatus": lifeStatusFrontend(individual.dead, individual.youngdead),
             }
             post_likes = Like.find_by_post_id(post.id)
             post_comments = Comment.find_by_post_id(post.id)
-            post_to_dict["likes"] = [] if post_likes == None else [{"id":pl.id, "liked_by_id":pl.liked_by_id} for pl in post_likes]
-            post_to_dict["comments"] = [] if post_comments == None else [{"id":pc.id, "content":pc.content, "author_id":pc.author_id} for pc in post_comments]
+            post_to_dict["likes"] = [] if post_likes == None else [{
+                "id":pl.id, 
+                "liked_by_id":pl.liked_by_id,
+                "liked_by_name":Individual.query.get(pl.liked_by_id).name,
+                "liked_by_username":Individual.query.get(pl.liked_by_id).email.split('@')[0],
+                } for pl in post_likes]
+            post_to_dict["comments"] = [] if post_comments == None else [{
+                "id":pc.id, 
+                "content":pc.content, 
+                "author_id":pc.author_id,
+                "author_name":Individual.query.get(pc.author_id).name,
+                "author_username":Individual.query.get(pc.author_id).email.split('@')[0],
+                } for pc in post_comments]
             # post_to_dict['author'] = post.author
             posts_as_dict_list.append(post_to_dict)
         

@@ -205,36 +205,134 @@ class IndividualList(Resource):
         FAMILY = []
         FAMILY_GENERATIONS = []
         GENERATION_0 = []
-        for indiv in Individual.query.all(): 
+        for indiv in Individual.query.all():
+
+            indivFather = None
+            indivMother = None
+            if indiv.parent_male_id :
+                indivFather = Individual.query.get(indiv.parent_male_id)
+            if indiv.parent_female_id :
+                indivMother = Individual.query.get(indiv.parent_female_id)
+            
+            # ############################
+            indivChildren = []
+            myChildren1 = Individual.query.filter_by(parent_male_id=indiv.id).all()
+            myChildren2 = Individual.query.filter_by(parent_female_id=indiv.id).all()
+            unique_children = list(set(myChildren1) | set(myChildren2))
+            for indivChild in unique_children:
+                childObject = indivChild 
+                child = {
+                    "id": int(childObject.id),
+                    "name": childObject.name,
+                    "gender": genderFrontend(childObject.gender),
+                    "status": lifeStatusFrontend(childObject.dead, childObject.youngdead, childObject.gender),
+                }
+                indivChildren.append(child)
+
+            # ############################
+            indivSpouses = []
+            if is_iterable(indiv.spouses):
+                for indivsp in indiv.spouses:
+                    spouseObject = indivsp 
+                    spouse = {
+                        "id": int(spouseObject.id),
+                        "name": spouseObject.name,
+                        "gender": genderFrontend(spouseObject.gender),
+                        "status": lifeStatusFrontend(spouseObject.dead, spouseObject.youngdead, spouseObject.gender),
+                    }
+                    indivSpouses.append(spouse)
+            
+            # ############################
+            indivFamilies = []
+            if is_iterable(indiv.families):
+                for indivsp in indiv.families:
+                    familyObject = indivsp 
+                    family = {
+                        "id":familyObject.id,
+                        "name": familyObject.name,
+                    }
+                    indivFamilies.append(family)
+
+            indivItem = {
+                "id": indiv.id,
+                "generation": None,
+                "myPhoto": indiv.photoPath,
+                "myPhotoName": indiv.photoName,
+                "myID": indiv.id,
+                "myName": indiv.name,                
+                "myInitials": getFirst2Initials(indiv.name),
+                "myGender": genderFrontend(indiv.gender),
+                "myLifeStatus": lifeStatusFrontend(indiv.dead, indiv.youngdead, indiv.gender),
+                "father": {
+                    "id": None if indivFather == None else int(indivFather.id),
+                    "name": None if indivFather == None else indivFather.name,
+                    "gender": None if indivFather == None else genderFrontend(indivFather.gender),
+                    "status": None if indivFather == None else lifeStatusFrontend(indivFather.dead, indivFather.youngdead, indivFather.gender),
+                },
+                "mother": {
+                    "id": None if indivMother == None else int(indivMother.id),
+                    "name": None if indivMother == None else indivMother.name,
+                    "gender": None if indivMother == None else genderFrontend(indivMother.gender),
+                    "status": None if indivMother == None else lifeStatusFrontend(indivMother.dead, indivMother.youngdead, indivMother.gender),
+                },
+                
+                "spouses": indivSpouses,
+                "children":indivChildren,
+                "families": indivFamilies,                
+                "len_spouses": len(indivSpouses),
+                "birthrank": '' if indiv.birth_rank == None else indiv.birth_rank,
+                "birthdate": '' if indiv.birth_date == None else indiv.birth_date,
+                "birthplace": '' if indiv.birth_place == None else indiv.birth_place,
+                "email": '' if indiv.email == None else indiv.email,
+                "telephone": '' if indiv.telephone == None else indiv.telephone,
+                "profession": '' if indiv.profession == None else indiv.profession,
+                "country": '' if indiv.country == None else indiv.country,
+                "city": '' if indiv.city == None else indiv.city,
+                "linkedin": '' if indiv.linkedin == None else indiv.linkedin,
+                "twitter": '' if indiv.twitter == None else indiv.twitter,
+                "facebook": '' if indiv.facebook == None else indiv.facebook,
+                "instagram": '' if indiv.instagram == None else indiv.instagram,
+                "aboutme": '' if indiv.aboutme == None else indiv.aboutme,
+                "is_ghost": indiv.is_ghost,
+                
+            }
+
+            if indiv.isIncomingSpouse :
+                indivItem["father"]["id"] = random.randint(300, 700)
+                indivItem["father"]["name"] = indiv.sFatherName
+                indivItem["father"]["status"] = lifeStatusFrontend(indiv.sFatherDead, False, 'm')
+                indivItem["mother"]["id"] = random.randint(300, 700)
+                indivItem["mother"]["name"] = indiv.sMotherName
+                indivItem["mother"]["status"] = lifeStatusFrontend(indiv.sMotherDead, False, 'f') 
 
             # print("/////////////////////////////////////////////////////////")
             # print(indiv.spouses)
             # print("/////////////////////////////////////////////////////////")
-            indiv_spouses = []
-            if is_iterable(indiv.spouses):
-                for sp in indiv.spouses:
-                    indiv_spouses.append(sp.id)
+            # indiv_spouses = []
+            # if is_iterable(indiv.spouses):
+            #     for sp in indiv.spouses:
+            #         indiv_spouses.append(sp.id)
                     
-            indivItem = {
-                "id": indiv.id,
-                "name": indiv.name,
-                "gender": indiv.gender,
-                "alive": not indiv.dead,
-                "father": indiv.parent_male_id,
-                "mother": indiv.parent_female_id,
-                "spouses": indiv_spouses,
-                "generation": None,
-                "dead": indiv.dead,
-                "photo": indiv.photoPath if indiv.photoName else None,
-                "isIncomingSpouse": indiv.isIncomingSpouse,
-                "is_ghost": indiv.is_ghost,
-            }
+            # indivItem = {
+            #     "id": indiv.id,
+            #     "name": indiv.name,
+            #     "gender": indiv.gender,
+            #     "alive": not indiv.dead,
+            #     "father": indiv.parent_male_id,
+            #     "mother": indiv.parent_female_id,
+            #     "spouses": indiv_spouses,
+            #     "generation": None,
+            #     "dead": indiv.dead,
+            #     "photo": indiv.photoPath if indiv.photoName else None,
+            #     "isIncomingSpouse": indiv.isIncomingSpouse,
+            #     "is_ghost": indiv.is_ghost,
+            # }
             # If Indiv has no parent and his/her spouse has no parent too then he's Generation 0
             if not indiv.parent_male_id and not indiv.parent_female_id:
                 sp_flag = False
-                if len(indiv_spouses)  > 0 :                    
-                    for isp in indiv_spouses:
-                        isp_obj = Individual.query.get(isp)
+                if len(indivSpouses)  > 0 :
+                    for isp in indivSpouses:
+                        isp_obj = Individual.query.get(isp["id"])
                         if isp_obj.parent_male_id or isp_obj.parent_female_id:
                             # flag=True if Indiv spouse has a parent => then Indiv is not of Generation 0
                             sp_flag = True
@@ -279,6 +377,22 @@ class IndividualDetails(Resource):
                 cmoFather = Individual.query.get(cmo.parent_male_id)
             if cmo.parent_female_id :
                 cmoMother = Individual.query.get(cmo.parent_female_id)
+            
+            # ############################
+            indivChildren = []
+            myChildren1 = Individual.query.filter_by(parent_male_id=cmo.id).all()
+            myChildren2 = Individual.query.filter_by(parent_female_id=cmo.id).all()
+            unique_children = list(set(myChildren1) | set(myChildren2))
+            for indivChild in unique_children:
+                childObject = indivChild 
+                child = {
+                    "id": int(childObject.id),
+                    "name": childObject.name,
+                    "gender": genderFrontend(childObject.gender),
+                    "status": lifeStatusFrontend(childObject.dead, childObject.youngdead, childObject.gender),
+                }
+                indivChildren.append(child)
+
             # ############################
             cmoSpouses = []
             if is_iterable(cmo.spouses):
@@ -325,6 +439,7 @@ class IndividualDetails(Resource):
                 },
                 
                 "spouses": cmoSpouses,
+                "children": indivChildren,
                 "families": cmoFamilies,
                 "len_spouses": len(cmoSpouses),
                 "birthrank": '' if cmo.birth_rank == None else cmo.birth_rank,
@@ -377,6 +492,7 @@ class NewFamilyMember(Resource):
 
         cmo = Individual(
             name = get_arg('myName'),
+            username = get_arg('myUsername'),            
             gender = get_arg('myGender'),
             dead = my_lv["dv"],
             youngdead = my_lv["ydv"],
@@ -398,6 +514,7 @@ class NewFamilyMember(Resource):
             aboutme = get_arg('aboutme'),
             isIncomingSpouse = str_to_bool(get_arg('isIncomingSpouse')),
             is_ghost = str_to_bool(get_arg('is_ghost')),
+            is_deleted = str_to_bool(get_arg('is_deleted'))
         )
         
         if get_arg('urlLastButOneItem') == 'new_spouse':
@@ -471,7 +588,7 @@ class IndividualUpdate(Resource):
             motherId = process_parents(str_to_bool(get_arg('hasMotherCheck')), str_to_bool(get_arg('newMotherCheck')), str_to_bool(get_arg('urlLastButOneItem')), get_arg('motherId'), get_arg('newMotherName'), get_arg('motherLifeStatusValue'), 'f')      
             
             cmo = Individual.query.get(id)
-            cmo.is_ghost = str_to_bool(get_arg('is_ghost'))
+            cmo.username, cmo.is_ghost, cmo.is_deleted = get_arg('myUsername'), str_to_bool(get_arg('is_ghost')), str_to_bool(get_arg('is_deleted'))
             cmo.name, cmo.gender, cmo.dead, cmo.youngdead = get_arg('myName'), get_arg('myGender'), my_lv["dv"], my_lv["ydv"]
             cmo.generation, cmo.parent_male_id, cmo.parent_female_id = None, fatherId, motherId
             

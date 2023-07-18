@@ -1,0 +1,60 @@
+.leftbar {
+    flex: 3;
+    height: calc(100vh - 4.5rem);
+    margin: 2rem;
+    font-family: "McLaren", cursive;
+    min-width: 250px !important;
+}
+
+.leftbarnames {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftbarnamesP {
+    text-align: left;
+    padding-left: 0;
+}
+
+.leftbarlist {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.leftbarspantext {
+    margin-left: 1rem;
+}
+
+.leftbarlistitems {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.leftbaricon {
+    margin-right: 0.5rem;
+}
+
+.leftbarbottomwrapper {
+    margin-top: 1.25rem;
+    background-color: #50a3a2;
+    border-radius: 0.5rem;
+    padding: 2rem;
+   
+}
+
+.leftbarwrapper {
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: #50a3a2;
+    padding: 2rem;
+   
+}
+
+.link {
+    color:  white;
+    text-decoration: none;
+}
