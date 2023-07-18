@@ -12,6 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Myfamilies from './pages/myfamilies/Myfamilies';
+import FamilyTree from "./pages/family-tree/FamilyTree.js";
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/myfamilies",
     element: <Myfamilies />,
+  },
+  {
+    path: "/family-tree",
+    element: <FamilyTree />,
   },
 ]);
 

@@ -50,7 +50,9 @@ function Leftbar(props) {
                     <a href="/listpage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PeopleIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>My family members</span></li></a>
                     <a href="/profilepage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PersonIcon className={Leftbarstyle.leftbaricon} /><span className={Leftbarstyle.leftbarspantext}>My profile</span></li></a>
                     <a href="/myfamilies" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PhotoLibraryIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>All families</span></li></a>
-                    <li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li>
+                    <a href="/family-tree" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li></a>
+                    
+                    {/* <li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li> */}
                 </ul>
             </div>
         </div>

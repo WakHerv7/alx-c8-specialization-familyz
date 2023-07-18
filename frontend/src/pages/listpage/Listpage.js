@@ -1,4 +1,5 @@
 import {React, useState, useEffect }from 'react';
+import Header from "../../components/Header";
 import Listpagestyle from  "./Listpage.module.css";
 import Table from "../../components/table/Table";
 import Leftbar from "../../components/leftbar/Leftbar";
@@ -57,6 +58,8 @@ function Listpage() {
     }
 
     return (
+        <>        
+        {Array.isArray(myIndividuals.family) && <Header currentUser={myIndividuals.family[3]}/>}
         <div className={Listpagestyle.profilecontainer}>
             <h1 className={Listpagestyle.familymembers}>Family Members</h1>
             
@@ -77,6 +80,7 @@ function Listpage() {
             </div>
             
         </div>
+        </>
         
         
     )

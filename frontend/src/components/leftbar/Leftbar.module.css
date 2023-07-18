@@ -3,6 +3,7 @@
     height: calc(100vh - 4.5rem);
     margin: 2rem;
     font-family: "McLaren", cursive;
+    min-width: 250px !important;
 }
 
 .leftbarnames {
