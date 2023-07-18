@@ -1,8 +1,8 @@
 import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// const ITEMS_URL = process.env.REACT_APP_API_URL+'/families/list';
-const ITEMS_URL = 'http://localhost:8100'+'/families';
+const ITEMS_URL = process.env.REACT_APP_API_URL+'/families';
+// const ITEMS_URL = 'http://localhost:8100'+'/families';
 
 
 const initialState = {
