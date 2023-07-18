@@ -1,5 +1,5 @@
 import Myfamiliesstyle from "./Myfamilies.module.css";
-import Header from "../../components/Header";
+// import Header from "../../components/Header";
 import { Helmet } from 'react-helmet';
 import photo1 from "./images/photo1.jpg"
 
@@ -51,7 +51,7 @@ function Myfamilies() {
             <Helmet>
                 <style>{'body { background-color: #bae0e0; }'}</style>
             </Helmet>
-            <Header />
+            {/* <Header /> */}
             <div className={Myfamiliesstyle.myfamdiv}>
                 <div className={Myfamiliesstyle.myfamdiv2}>
                     <div className={Myfamiliesstyle.myfamdivleft}>
@@ -65,49 +65,6 @@ function Myfamilies() {
             </div>
             <div className={Myfamiliesstyle.imagesdiv}>
                 {renderedFamilies}
-                {/* <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div>
-                <div className={Myfamiliesstyle.images}>
-                    <div>
-                        <img alt="familypic" src={photo1} className={Myfamiliesstyle.img}></img>
-                    </div>
-                    <button className={Myfamiliesstyle.imagetext}>Nwankwo Family</button>
-                </div> */}
             </div>
         </div>
     )

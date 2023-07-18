@@ -6,7 +6,7 @@ import Homestyle from "./Home.module.css";
 function Home() {
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <main className={Homestyle.maincontainer}>
                 <Leftbar />
                 <Feeds />

@@ -30,7 +30,7 @@ function Profilepage() {
     // --------------------------------------------------------
     return (
         <div className={Profilepagestyle.maincontainer}>
-            <Header />
+            {/* <Header /> */}
             <div className={Profilepagestyle.containerdiv}>
                 <div className={Profilepagestyle.leftdiv}>
                     <Leftbar currentUser={oneIndividual}/>

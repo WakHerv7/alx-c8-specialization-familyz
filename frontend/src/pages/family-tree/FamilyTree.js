@@ -137,7 +137,7 @@ function FamilyTree() {
 
     return (
         <>
-        {Array.isArray(myIndividuals.family) && <Header currentUser={myIndividuals.family[3]}/>}
+        {/* {Array.isArray(myIndividuals.family) && <Header currentUser={myIndividuals.family[3]}/>} */}
         <div className={Listpagestyle.profilecontainer}>
             <h1 className={Listpagestyle.familymembers}>Family Tree</h1>
             <div className={Listpagestyle.renderedcontainer}>

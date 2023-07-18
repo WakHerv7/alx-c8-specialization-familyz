@@ -1,14 +1,16 @@
-import {React, useState, useEffect }from 'react';
+import {React, useState, useEffect  }from 'react';
 import Header from "../../components/Header";
 import Listpagestyle from  "./Listpage.module.css";
 import Table from "../../components/table/Table";
 import Leftbar from "../../components/leftbar/Leftbar";
 import AddIcon from '@mui/icons-material/Add';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch }from 'react-redux';
 import { selectAllIndividuals,  getIndividualsStatus, getIndividualsError, fetchIndividuals }from '../../reducers/IndividualSlice';
 
 function Listpage() {
+    
+
     const dispatch = useDispatch();    
     const navigate = useNavigate();
     // console.log("process.env.REACT_APP_API_URL :", process.env.REACT_APP_API_URL)
@@ -59,7 +61,7 @@ function Listpage() {
 
     return (
         <>        
-        {Array.isArray(myIndividuals.family) && <Header currentUser={myIndividuals.family[3]}/>}
+        {/* {Array.isArray(myIndividuals.family) && <Header currentUser={myIndividuals.family[3]}/>} */}
         <div className={Listpagestyle.profilecontainer}>
             <h1 className={Listpagestyle.familymembers}>Family Members</h1>
             
