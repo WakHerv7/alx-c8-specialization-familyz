@@ -1,4 +1,5 @@
 import Loginstyle from "./Login.module.css";
+import { Link } from "react-router-dom";
 
 function Login() {
     return (
@@ -7,9 +8,13 @@ function Login() {
             <form>
                 <input className={Loginstyle.logininput} type="email" placeholder="Email Address" />
                 <input className={Loginstyle.logininput} type="password" placeholder="Password" />
-                <button className={Loginstyle.loginbutton}>Continue</button>
+                <Link to={"/"}><button className={Loginstyle.loginbutton}>Continue</button></Link>
             </form>
-            <p className={Loginstyle.loginparagraph}>Don't have an account? Sign up</p>
+            <p className={Loginstyle.loginparagraph}>
+                Don't have an account?
+                <Link className={Loginstyle.loginparagraph} to="/signup">Sign up</Link>
+                
+            </p>
 
             <button className={Loginstyle.loginbutton}>Continue with Google</button><br></br>
             <button className={Loginstyle.loginbutton}>Continue with Apple</button>

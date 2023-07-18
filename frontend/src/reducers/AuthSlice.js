@@ -2,6 +2,7 @@ import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const ITEMS_URL = process.env.REACT_APP_API_URL+'/auths';
+const ITEMS_URL2 = process.env.REACT_APP_API_URL+'/individuals';
 
 const initialState = {
     auths: [],
@@ -24,8 +25,9 @@ export const fetchAuths = createAsyncThunk('auths/fetchAuths', async () => {
 export const fetchAuthById = createAsyncThunk('auths/fetchAuthById', async (initialAuth) => {
     const { id } = initialAuth;
     try {
-        const response = await axios.get(`${ITEMS_URL}/${id}`)
-        return [...response.data];
+        const response = await axios.get(`${ITEMS_URL2}/${id}`)
+        // return [...response.data];
+        return response.data
     } catch (err) {
         return err.message;
     }

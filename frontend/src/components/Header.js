@@ -4,11 +4,11 @@ import family from "./images/family.png";
 import avatar from "./images/avatar.JPG";
 import SearchIcon from '@mui/icons-material/Search';
 import Avatar from '@mui/material/Avatar';
-
+import { Link } from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch }from 'react-redux';
-import {  selectIndividualById, fetchIndividuals, selectAllIndividuals,  getIndividualsStatus, getIndividualsError, fetchIndividualById }from '../reducers/IndividualSlice';
+import {  selectAuthById, fetchAuths, selectAllAuths,  getAuthsStatus, getAuthsError, fetchAuthById }from '../reducers/AuthSlice';
 
 
 function Header({currentUser}) {
@@ -16,9 +16,9 @@ function Header({currentUser}) {
     const dispatch = useDispatch();
     const [user, setUser] = useState();
     // --------------------------------------------------------
-    const oneIndividual = useSelector(selectAllIndividuals);
-    const individualsStatus = useSelector(getIndividualsStatus);
-    const individualsError = useSelector(getIndividualsError);
+    const oneAuth = useSelector(selectAllAuths);
+    const AuthsStatus = useSelector(getAuthsStatus);
+    const AuthsError = useSelector(getAuthsError);
     useEffect(() => {
         if (currentUser) {
             setUser(currentUser)
@@ -26,24 +26,24 @@ function Header({currentUser}) {
             console.log("currentUser:", currentUser)
             console.log("======================")
         } else {
-            if (individualsStatus === 'idle') {
-                dispatch(fetchIndividualById({id:4}))            
+            if (AuthsStatus === 'idle') {
+                dispatch(fetchAuthById({id:4}))            
             }
-            else if (individualsStatus === 'succeeded') {
-                setUser(oneIndividual)
+            else if (AuthsStatus === 'succeeded') {
+                setUser(oneAuth)
                 console.log("======================")
-                console.log("myIndividuals:", oneIndividual)
+                console.log("myAuths:", oneAuth)
                 console.log("======================")
             }
         }
         
-    }, [currentUser, individualsStatus, dispatch])
+    }, [currentUser, AuthsStatus, dispatch])
     // --------------------------------------------------------
     return (
         <header className={Headerstyle.headercontainer}>
             <div className={Headerstyle.headerleft}>
                 <img className={Headerstyle.headerimage} src={family} alt="logo"></img>
-                <span className={Headerstyle.logotext}>Familyz</span>
+                <Link to="/"><span className={Headerstyle.logotext}>Familyz</span></Link>
             </div>
             <div className={Headerstyle.headercenter}>
                 <div className={Headerstyle.searchbar}>

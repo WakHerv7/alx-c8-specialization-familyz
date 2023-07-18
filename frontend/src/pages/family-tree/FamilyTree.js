@@ -33,7 +33,7 @@ function FamilyTree() {
         }
         else if (individualsStatus === 'succeeded') {
             console.log("======================")
-            console.log("myIndividuals:", myIndividuals)
+            console.log("myIndividuals Tree:", myIndividuals)
             console.log("======================")
             Array.isArray(myIndividuals.family) && BuildFamilyTree({
                 response: myIndividuals, 
@@ -142,10 +142,10 @@ function FamilyTree() {
             <h1 className={Listpagestyle.familymembers}>Family Tree</h1>
             <div className={Listpagestyle.renderedcontainer}>
                 <div className={Listpagestyle.renderedtop}>
-                    <Leftbar currentUser={Array.isArray(myIndividuals.family) && myIndividuals.family[3]}/>
+                    <Leftbar/>
                 </div>
                 
-                <div class="container_wh">
+                <div className="container_wh">
             {/* <h1 
                 style={containerH1}>
                 Family tree
@@ -183,7 +183,7 @@ function FamilyTree() {
                     <g id="manyLines"></g>
                     <g id="manyCircles"></g>
                     <foreignObject id="modalScreen" x="0" y="0" width="100%" height="100%">
-                        <div id="modalScreenDiv" class="modalScreenDiv displayNone">
+                        <div id="modalScreenDiv" className="modalScreenDiv displayNone">
                         </div>
                     </foreignObject>
                     <g id="manyCircleTexts"></g>

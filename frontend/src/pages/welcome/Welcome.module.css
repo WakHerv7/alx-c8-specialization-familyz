@@ -10,7 +10,7 @@ body {
     font-family: "Source Sans Pro", sans-serif;
     color: white;
     font-weight: 300;
-    background: #50a3a2;
+    background: #50a3a2 !important;
     width: 100%;
     height: 100%;
 }
@@ -31,7 +31,7 @@ img {
 }
 
 .welcomeP {
-    width: 15rem;
+    width: 50rem;
     border-radius: 3px;
     font-family: "Source Sans Pro", sans-serif;
     padding: 0.625rem 0.938rem;

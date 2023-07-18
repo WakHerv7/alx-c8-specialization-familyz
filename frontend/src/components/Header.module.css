@@ -80,10 +80,14 @@ body {
     color: #fff;
     font-family: "McLaren", cursive;
     cursor: pointer;
+    text-decoration: none !important;
 }
 
 .headerimage {
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
+}
+.headerimage ~ a {
+    text-decoration: none !important;
 }

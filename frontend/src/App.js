@@ -11,29 +11,29 @@ import {
 import Myfamilies from './pages/myfamilies/Myfamilies';
 import FamilyTree from "./pages/family-tree/FamilyTree.js";
 import Home from "./pages/home/Home";
-// import Header from "./components/Header";
+import Welcome from "./pages/welcome/Welcome";
 import Layout from "./pages/Layout";
 function App() {
   return (
     <>
       <Router forceRefresh={true}>
         <Routes>
-          {/* <Route path="/" element={<Home key="1" />}>            
-          </Route> */}
-          <Route path="/login" element={<Login key="2" />}>              
+          <Route path="/welcome" element={<Welcome/>}>            
           </Route>
-          <Route path="/signup" element={<Signup key="3" />}>              
+          <Route path="/login" element={<Login/>}>              
+          </Route>
+          <Route path="/signup" element={<Signup/>}>              
           </Route>
           <Route exact path="/" element={<Layout/>}>
-            <Route exact path="" element={<Home key="1" />}>            
+            <Route exact path="" element={<Home/>}>            
             </Route>
-            <Route exact path="listpage" element={<Listpage key="4" />}>              
+            <Route exact path="listpage" element={<Listpage/>}>              
             </Route>
-            <Route exact path="profilepage" element={<Profilepage key="5" />}>              
+            <Route exact path="profilepage" element={<Profilepage/>}>              
             </Route>
-            <Route exact path="myfamilies" element={<Myfamilies key="6" />}>              
+            <Route exact path="myfamilies" element={<Myfamilies/>}>              
             </Route>
-            <Route exact path="family-tree" element={<FamilyTree key="7" />}>              
+            <Route exact path="family-tree" element={<FamilyTree/>}>              
             </Route>
           </Route>
           

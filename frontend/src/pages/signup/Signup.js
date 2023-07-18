@@ -1,4 +1,6 @@
 import Signupstyle from "./Signup.module.css";
+import { Link } from "react-router-dom";
+
 function Signup() {
     return (
         <div className={Signupstyle.logincontainer}>
@@ -10,9 +12,11 @@ function Signup() {
                 <input className={Signupstyle.signupinput} type="tel" placeholder="Phone Number" />
                 <input className={Signupstyle.signupinput} type="email" placeholder="Email Address" />
                 <input className={Signupstyle.signupinput} type="password" placeholder="Password" />
-                <button className={Signupstyle.signupbutton}>Continue</button>
+                <Link to={"/"}><button className={Signupstyle.signupbutton}>Continue</button></Link>
             </form>
-            <p className={Signupstyle.signupparagraph} >Already have an account? Log in</p>
+            <p className={Signupstyle.signupparagraph} >Already have an account?            
+            <Link className={Signupstyle.signupparagraph} to="/signup">Log in</Link>
+            </p>
 
             <button className={Signupstyle.signupbutton}>Continue with Google</button><br></br>
             <button className={Signupstyle.signupbutton}>Continue with Apple</button>
