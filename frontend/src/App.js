@@ -16,7 +16,7 @@ import Layout from "./pages/Layout";
 function App() {
   return (
     <>
-      <Router forceRefresh={true}>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/welcome" element={<Welcome/>}>            
           </Route>
