@@ -46,17 +46,17 @@ function Leftbar(props) {
             </div>
             <div className={Leftbarstyle.leftbarbottomwrapper}>
                 <ul className={Leftbarstyle.leftbarlist}>
-                    <Link to="/" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><HomeIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Home</span></li></Link>
+                    {/* <Link to="/" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><HomeIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Home</span></li></Link>
                     <Link to="/listpage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PeopleIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>My family members</span></li></Link>
                     <Link to="/profilepage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PersonIcon className={Leftbarstyle.leftbaricon} /><span className={Leftbarstyle.leftbarspantext}>My profile</span></li></Link>
                     <Link to="/myfamilies" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PhotoLibraryIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>All families</span></li></Link>
-                    <Link to="/family-tree" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li></Link>
+                    <Link to="/family-tree" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li></Link> */}
 
-                    {/* <a href="/" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><HomeIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Home</span></li></a>
+                    <a href="/" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><HomeIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Home</span></li></a>
                     <a href="/listpage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PeopleIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>My family members</span></li></a>
                     <a href="/profilepage" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PersonIcon className={Leftbarstyle.leftbaricon} /><span className={Leftbarstyle.leftbarspantext}>My profile</span></li></a>
                     <a href="/myfamilies" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><PhotoLibraryIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>All families</span></li></a>
-                    <a href="/family-tree" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li></a> */}
+                    <a href="/family-tree" className={Leftbarstyle.link}><li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li></a>
                     
                     {/* <li className={Leftbarstyle.leftbarlistitems}><FamilyRestroomIcon className={Leftbarstyle.leftbaricon} /> <span className={Leftbarstyle.leftbarspantext}>Family Tree</span></li> */}
                 </ul>
