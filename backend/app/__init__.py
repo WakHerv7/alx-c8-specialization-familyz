@@ -61,7 +61,7 @@ def swagger():
         return jsonify(json.load(f))
 
 
-from app.routes.initialization import main
+# from app.routes.initialization import main
 from app.routes import auth, individual, family, post, comment, like
 
 
